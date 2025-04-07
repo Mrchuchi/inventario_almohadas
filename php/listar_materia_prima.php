@@ -1,15 +1,28 @@
 <?php
-require 'conexion.php';
+// Conexión a la base de datos
+include 'conexion.php';
 
-$sql = "SELECT id, nombre, unidad_medida, cantidad_actual, fecha_registro FROM materia_prima ORDER BY id DESC";
+// Consulta para obtener todos los registros de materia prima
+$sql = "SELECT * FROM materia_prima";
 $resultado = $conn->query($sql);
 
-$datos = [];
-
-while ($fila = $resultado->fetch_assoc()) {
-    $datos[] = $fila;
+// Verificamos si hay resultados
+if ($resultado->num_rows > 0) {
+    // Recorremos cada fila y generamos el HTML de la tabla
+    while ($fila = $resultado->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($fila['nombre']) . "</td>";
+        echo "<td>" . htmlspecialchars($fila['tipo']) . "</td>";
+        echo "<td>" . htmlspecialchars($fila['unidad']) . "</td>";
+        echo "<td>" . htmlspecialchars($fila['cantidad']) . "</td>";
+        echo "<td>" . htmlspecialchars($fila['proveedor']) . "</td>";
+        echo "</tr>";
+    }
+} else {
+    // Si no hay registros, mostramos un mensaje
+    echo "<tr><td colspan='5'>No hay registros de materia prima.</td></tr>";
 }
 
-header('Content-Type: application/json');
-echo json_encode($datos);
+// Cerramos la conexión
+$conn->close();
 ?>

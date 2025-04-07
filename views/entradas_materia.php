@@ -3,57 +3,134 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Registrar Entradas</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title>Registro de Materia Prima</title>
+    <link rel="stylesheet" href="../css/estilos.css"> <!-- Asegúrate que esta ruta sea correcta -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+
+        form {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">🛏️ Inventario Almohadas</div>
-        <ul class="nav-links">
-            <li><a href="index.php">Inicio</a></li>
-            <li><a href="materia_prima.php">Materia Prima</a></li>
-            <li><a href="produccion.php">Producción</a></li>
-            <li><a href="recetas.php">Recetas</a></li>
-            <li><a href="ventas.php">Ventas</a></li>
-            <li><a href="entradas_materia.php">Registrar Entrada</a></li>
-            <li><a href="php/logout.php">Cerrar sesión</a></li>
-        </ul>
-        <div class="menu-toggle">
-            <span></span>
-        </div>
-    </nav>
 
-    <main class="contenido">
-        <h2>Registrar Entrada de Materia Prima</h2>
-        <form id="formEntradaMateria">
-            <label for="materia_id">Materia Prima:</label>
-            <select id="materia_id" name="materia_id" required></select>
+    <h1>Registro de Materia Prima</h1>
 
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" required step="0.01" min="0">
+    <form id="formMateriaPrima">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required>
 
-            <button type="submit">Registrar Entrada</button>
-        </form>
+        <label>Tipo:</label>
+        <input type="text" name="tipo" required>
+
+        <label>Unidad:</label>
+        <input type="text" name="unidad" required>
+
+        <label>Cantidad:</label>
+        <input type="number" name="cantidad" required>
+
+        <label>Proveedor:</label>
+        <input type="text" name="proveedor" required>
+
+        <button type="submit">Guardar</button>
+    </form>
 
 
-        <h2>Historial de Entradas</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Materia Prima</th>
-                    <th>Cantidad</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody id="tablaEntradas">
-                <!-- Datos dinámicos -->
-            </tbody>
-        </table>
-    </main>
+    <h2>Inventario Actual</h2>
+    <div id="tablaMateriaPrima"></div>
 
-    <script src="js/entradas_materia.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formulario = document.getElementById("formMateriaPrima");
+
+            formulario.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const datos = new FormData(formulario);
+
+                fetch("../php/registrar_materia_prima.php", {
+                        method: "POST",
+                        body: datos,
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data.trim() === "ok") {
+                            alert("Registro exitoso");
+                            formulario.reset(); // ✅ Limpiar campos del formulario
+                            listarMateriaPrima(); // ✅ Actualizar tabla
+                        } else {
+                            alert("Error al registrar: " + data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error en la solicitud:", error);
+                    });
+            });
+
+            // ✅ Cargar tabla al inicio
+            listarMateriaPrima();
+        });
+
+        function listarMateriaPrima() {
+            fetch("../php/listar_materia_prima.php")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("tablaMateriaPrima").innerHTML = data;
+                })
+                .catch(error => {
+                    console.error("Error al listar:", error);
+                });
+        }
+    </script>
+
 </body>
 
 </html>
