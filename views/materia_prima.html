@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materia Prima</title>
+  <link rel="stylesheet" href="../css/estilos.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🛏️ Inventario Almohadas</div>
+    <ul class="nav-links">
+      <li><a href="admin.html">Inicio</a></li>
+      <li><a href="materia_prima.html" class="activo">Materia Prima</a></li>
+      <li><a href="produccion.html">Producción</a></li>
+      <li><a href="recetas.html">Recetas</a></li>
+      <li><a href="ventas.html">Ventas</a></li>
+      <li><a href="../php/logout.php">Cerrar sesión</a></li>
+    </ul>
+    <div class="menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <main class="contenido">
+    <h1>Inventario de Materia Prima</h1>
+
+    <!-- FORMULARIO -->
+    <section class="formulario-materia-prima">
+      <h2>Agregar Materia Prima</h2>
+      <form id="formAgregarMateriaPrima">
+        <div class="campo">
+          <label for="nombre">Nombre del Material:</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="campo">
+          <label for="unidad">Unidad de Medida:</label>
+          <select id="unidad" name="unidad" required>
+            <option value="">Selecciona una unidad</option>
+            <option value="metros">Metros</option>
+            <option value="litros">Litros</option>
+            <option value="gramos">Gramos</option>
+            <option value="unidades">Unidades</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" id="cantidad" name="cantidad" required min="0">
+        </div>
+        <button type="submit" class="btn-agregar">Agregar</button>
+      </form>
+    </section>
+
+    <!-- TABLA -->
+    <section>
+      <h2>Inventario Actual</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Unidad</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="inventarioTabla"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- SCRIPT -->
+  <script src="js/scripts.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("open");
+      });
+
+      // Cargar inventario
+      function cargarInventario() {
+        fetch("../php/listar_materia_prima.php")
+          .then(response => response.json())
+          .then(data => {
+            const tbody = document.querySelector("tbody");
+            tbody.innerHTML = "";
+            data.forEach(item => {
+              const fila = `
+                <tr>
+                  <td>${item.id}</td>
+                  <td>${item.nombre}</td>
+                  <td>${item.unidad_medida}</td>
+                  <td>${item.cantidad_actual}</td>
+                  <td>${item.fecha_registro}</td>
+                </tr>`;
+              tbody.innerHTML += fila;
+            });
+          })
+          .catch(error => {
+            console.error("Error al cargar inventario:", error);
+          });
+      }
+
+      cargarInventario();
+
+      // Enviar formulario
+      document.getElementById("formAgregarMateriaPrima").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById("nombre").value;
+        const unidad = document.getElementById("unidad").value;
+        const cantidad = document.getElementById("cantidad").value;
+
+        fetch("../php/registrar_entrada.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `nombre=${encodeURIComponent(nombre)}&unidad=${encodeURIComponent(unidad)}&cantidad=${encodeURIComponent(cantidad)}`
+        })
+        .then(response => response.text())
+        .then(data => {
+          alert("Materia prima agregada correctamente");
+          document.getElementById("formAgregarMateriaPrima").reset();
+          cargarInventario();
+        })
+        .catch(error => {
+          console.error("Error al agregar materia prima:", error);
+          alert("Hubo un error al registrar.");
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

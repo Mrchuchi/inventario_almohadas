@@ -1,0 +1,181 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Variables de color ===== */
+:root {
+  --color-principal: #1d3557;
+  --color-secundario: #457b9d;
+  --color-fondo: #f1f1f1;
+  --color-texto: #333;
+  --color-blanco: #fff;
+  --color-acento: #e63946;
+}
+
+/* ===== Estilo general ===== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-principal);
+  color: var(--color-blanco);
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  color: var(--color-blanco);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover,
+.nav-links li a.activo {
+  color: var(--color-acento);
+}
+
+/* ===== Menú hamburguesa ===== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-blanco);
+  border-radius: 2px;
+}
+
+/* ===== Contenido ===== */
+.contenido {
+  padding: 30px;
+}
+
+/* ===== Títulos ===== */
+h1, h2 {
+  margin-bottom: 20px;
+  color: var(--color-principal);
+}
+
+/* ===== Formulario ===== */
+.formulario-materia-prima {
+  background-color: var(--color-blanco);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.campo {
+  margin-bottom: 15px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* ===== Botón agregar ===== */
+.btn-agregar {
+  background-color: var(--color-secundario);
+  color: var(--color-blanco);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-agregar:hover {
+  background-color: var(--color-acento);
+}
+
+/* ===== Tabla ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-blanco);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table thead {
+  background-color: var(--color-principal);
+  color: var(--color-blanco);
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+table tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    background-color: var(--color-principal);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .contenido {
+    padding: 20px;
+  }
+}
