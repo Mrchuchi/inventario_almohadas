@@ -101,8 +101,8 @@ $materias_primas = $conn->query("SELECT id, nombre FROM materia_prima");
     <h2>Gestión de Recetas</h2>
 
     <form id="formReceta">
-        <label for="nombre_receta">Producto (Nombre de Receta):</label>
-        <input type="text" name="nombre_receta" id="nombre_receta" placeholder="Ej: Almohada Clásica" required>
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Ej: Almohada Clásica" required>
 
         <label for="materia_prima_id">Materia Prima:</label>
         <select name="materia_prima_id" id="materia_prima_id" required>
