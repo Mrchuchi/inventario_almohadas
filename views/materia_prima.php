@@ -8,16 +8,18 @@
 </head>
 
 <body>
+  <?php include 'navbar.php'; ?>
+
   <div class="formulario-materia">
-  <h2>Registro de Materia Prima</h2>
-  <form id="formMateriaPrima">
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="text" name="tipo" placeholder="Tipo" required> <!-- este -->
-    <input type="text" name="unidad" placeholder="Unidad (ej. kg, m, etc)" required>
-    <input type="number" name="cantidad" placeholder="Cantidad" required>
-    <input type="text" name="proveedor" placeholder="Proveedor" required> <!-- este -->
-    <button type="submit">Guardar</button>
-  </form>
+    <h2>Registro de Materia Prima</h2>
+    <form id="formMateriaPrima">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="text" name="tipo" placeholder="Tipo" required> <!-- este -->
+      <input type="text" name="unidad" placeholder="Unidad (ej. kg, m, etc)" required>
+      <input type="number" name="cantidad" placeholder="Cantidad" required>
+      <input type="text" name="proveedor" placeholder="Proveedor" required> <!-- este -->
+      <button type="submit">Guardar</button>
+    </form>
   </div>
 
 

@@ -61,6 +61,8 @@
 </head>
 
 <body>
+    <?php include 'navbar.php'; ?>
+
 
     <h1>Registro de Materia Prima</h1>
 
