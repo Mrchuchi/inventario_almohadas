@@ -1,7 +1,6 @@
 <?php
 include '../php/conexion.php';
 
-
 // Obtener recetas para el formulario
 $recetas = $conn->query("SELECT id, nombre FROM recetas");
 ?>
@@ -54,7 +53,7 @@ $recetas = $conn->query("SELECT id, nombre FROM recetas");
 
         button {
             margin-top: 20px;
-            background: #007bff;
+            background: #28a745; /* Verde utilizado en el proyecto */
             color: white;
             padding: 10px 20px;
             border: none;
@@ -63,7 +62,7 @@ $recetas = $conn->query("SELECT id, nombre FROM recetas");
         }
 
         button:hover {
-            background: #0056b3;
+            background: #218838; /* Verde más oscuro al hacer hover */
         }
 
         .ok {
@@ -116,7 +115,7 @@ $recetas = $conn->query("SELECT id, nombre FROM recetas");
 </head>
 
 <body>
-<?php include 'navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <h2>Registro de Producción</h2>
 
