@@ -67,7 +67,6 @@ if (!isset($_SESSION['usuario'])) {
 </style>
 
 <!-- Navbar con íconos -->
-<link href="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" rel="stylesheet">
 <nav class="navbar">
   <ul>
     <li><a href="dashboard_admin.html"><i data-lucide="layout-dashboard"></i> Inicio</a></li>
@@ -80,7 +79,7 @@ if (!isset($_SESSION['usuario'])) {
   </ul>
 </nav>
 
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@0.487.0" integrity="sha384-..."></script>
 <script>
   lucide.createIcons();
 </script>

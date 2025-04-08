@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const fila = document.createElement("tr");
 
                     fila.innerHTML = `
-                        <td>${receta.nombre}</td>
+                        <td>${receta.nombre_receta}</td>
                         <td>${receta.nombre_materia_prima}</td>
                         <td>${receta.cantidad_por_unidad}</td>
                         <td>
